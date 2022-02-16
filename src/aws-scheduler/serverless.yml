@@ -1,0 +1,16 @@
+service: aws-scheduler
+frameworkVersion: '2 || 3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: '20201221'
+  region: af-south-1
+
+functions:
+  hello:
+    handler: app/hello.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
