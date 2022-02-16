@@ -1,12 +1,12 @@
 'use strict';
-const { v4 } = require('uuid');
+// const { v4 } = require('uuid');
 const AWS = require('aws-sdk');
 
 const addTodo = async (event) => {
   const dynamodb = new AWS.DynamoDB.DocumentClient();
   const { todo } = JSON.parse(event.body);
   const createdAt = new Date().toISOString();
-  const id = v4();
+  const id = Math.random().toString().slice(10);
 
   console.log('This is an id ' + id);
 
