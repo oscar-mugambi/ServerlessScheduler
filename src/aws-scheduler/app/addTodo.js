@@ -1,26 +1,27 @@
-'use strict';
-// const { v4 } = require('uuid');
+const { v4 } = require('uuid');
 const AWS = require('aws-sdk');
 
 const addTodo = async (event) => {
   const dynamodb = new AWS.DynamoDB.DocumentClient();
   const { todo } = JSON.parse(event.body);
   const createdAt = new Date().toISOString();
-  const id = Math.random().toString().slice(10);
+  const id = v4();
 
-  console.log('This is an id ' + id);
+  // console.log('This is an id', id);
 
   const newTodo = {
     id,
     todo,
     createdAt,
-    competed: false,
+    completed: false,
   };
 
-  dynamodb.put({
-    TableName: 'TodoTable',
-    Item: newTodo,
-  });
+  await dynamodb
+    .put({
+      TableName: 'TodoTable',
+      Item: newTodo,
+    })
+    .promise();
 
   return {
     statusCode: 200,

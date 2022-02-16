@@ -1,20 +1,28 @@
-// 'use strict';
-// const AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 
-// const fetchTodo = async (event) => {
-//   const dynamodb = new AWS.DynamoDB.DocumentClient();
+const fetchTodos = async (event) => {
+  const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-//   dynamodb.put({
-//     TableName: 'TodoTable',
-//     Item: newTodo,
-//   });
+  let todos;
 
-//   return {
-//     statusCode: 200,
-//     body: JSON.stringify(newTodo),
-//   };
-// };
+  try {
+    const results = await dynamodb
+      .scan({
+        TableName: 'TodoTable',
+      })
+      .promise();
 
-// module.exports = {
-//   handler: fetchTodo,
-// };
+    todos = results.Items;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify(todos),
+  };
+};
+
+module.exports = {
+  handler: fetchTodos,
+};
