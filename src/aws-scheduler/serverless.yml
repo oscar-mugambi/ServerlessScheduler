@@ -8,12 +8,12 @@ provider:
   region: af-south-1
 
 functions:
-  hello:
-    handler: app/hello.handler
+  addTodo:
+    handler: app/addTodo.handler
     events:
       - httpApi:
           path: /
-          method: get
+          method: post
 resources:
   Resources:
     TodoTable:
