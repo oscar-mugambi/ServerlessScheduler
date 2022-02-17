@@ -26,6 +26,12 @@ functions:
       - httpApi:
           path: /todos
           method: get
+  getTweet:
+    handler: app/getTweet.handler
+    events:
+      - httpApi:
+          path: /tweet
+          method: get
 resources:
   Resources:
     TodoTable:

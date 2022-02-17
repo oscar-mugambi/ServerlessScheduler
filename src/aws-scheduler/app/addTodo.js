@@ -14,6 +14,7 @@ const addTodo = async (event) => {
     todo,
     createdAt,
     completed: false,
+    // ttl: 1645048171,
   };
 
   await dynamodb
